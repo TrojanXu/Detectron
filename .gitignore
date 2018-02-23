@@ -22,3 +22,15 @@ lib/datasets/data/*
 
 # Generated C files
 lib/utils/cython_*.c
+
+#emacs
+*~
+
+#local
+test/*
+model_files/*
+.tags
+*.pkl
+*.WEIGHTS
+.idea/*
+.vscode/*
