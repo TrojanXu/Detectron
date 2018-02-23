@@ -39,3 +39,23 @@ INFO task_evaluation.py: 180: copypaste: Dataset: coco_2014_minival
 INFO task_evaluation.py: 182: copypaste: Task: box
 INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
 INFO task_evaluation.py: 186: copypaste: 0.4126,0.6368,0.4472,0.2546,0.4527,0.5285
+
+with aug
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.440
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.654
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.484
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.295
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.472
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.564
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.349
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.569
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.605
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.450
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.638
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.741
+INFO json_dataset_evaluator.py: 199: Wrote json eval results to: ./test/coco_2014_minival/generalized_rcnn/detection_results.pkl
+INFO task_evaluation.py:  61: Evaluating bounding boxes is done!
+INFO task_evaluation.py: 180: copypaste: Dataset: coco_2014_minival
+INFO task_evaluation.py: 182: copypaste: Task: box
+INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
+INFO task_evaluation.py: 186: copypaste: 0.4401,0.6537,0.4844,0.2954,0.4721,0.5640
