@@ -100,3 +100,31 @@ mask rcnn without aug
 only box ap is higher than resnet101, average recall/precision drops, don't know why
 tried that, trigger box aug or box+mask aug cost almost same memory. Memroy will exhaust when scale's length is larger than 2
 need to check whether faster rcnn model will allow for full augmentation on a 12 GB card.
+
+####
+test updates from facebook. cannot avoid memory failure
+Also to remember that, once updated the code, cd lib to make to let it take effect.
+
+####
+test faster rcnn memory usage, a reasonable aug setting is     SCALES: (400, 600), need to check the performance, no h_flip for sacles
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.426
+Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.643
+Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.463
+Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.262
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.463
+Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.569
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.342
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.543
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.574
+Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.384
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.614
+Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.727
+INFO json_dataset_evaluator.py: 199: Wrote json eval results to: ./test/coco_2014_minival/generalized_rcnn/detection_results.pkl
+INFO task_evaluation.py:  61: Evaluating bounding boxes is done!
+INFO task_evaluation.py: 180: copypaste: Dataset: coco_2014_minival
+INFO task_evaluation.py: 182: copypaste: Task: box
+INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
+INFO task_evaluation.py: 186: copypaste: 0.4263,0.6427,0.4629,0.2623,0.4628,0.5687
+
+just get an averaged result compared to full-aug and no-aug. larger scales can imporve performance on small regions(guess)
+(TODO) add another test, scales change to [1000, 1200]
