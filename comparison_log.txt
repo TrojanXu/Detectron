@@ -59,3 +59,44 @@ INFO task_evaluation.py: 180: copypaste: Dataset: coco_2014_minival
 INFO task_evaluation.py: 182: copypaste: Task: box
 INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
 INFO task_evaluation.py: 186: copypaste: 0.4401,0.6537,0.4844,0.2954,0.4721,0.5640
+
+####
+test mask rcnn x152 training:
+memory usage: 10GB per card, nearly 4 days remaining
+
+####
+fasterrcnn X101 with aug, 4gpu by --multi-gpu-testing, nearly 4 times speedup
+
+####
+what are the highlights of detectron? compared to keras faster-rcnn with resnet50 (box ap 34.8-3, no roi-align)
+1. resnet50 modification  2ap
+2. fpn 2ap
+3. roi align  3ap
+4. resnet 101, 152(on imagenet-5k)  2.5ap 5.5ap (compared to resnet50)
+5. testing aug: h_flip, multi_scale, multi_ratio(not used) => box vote 3ap  (imporve small box recall and accuracy)
+in total => 2+2+3+5.5+3=15.5  , around 47
+
+####
+mask rcnn without aug
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.398
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.635
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.423
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.199
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.430
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.574
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.322
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.495
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.517
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.317
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.561
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.678
+ INFO json_dataset_evaluator.py: 122: Wrote json eval results to: ./test/coco_2014_minival/generalized_rcnn/segmentation_results.pkl
+ INFO task_evaluation.py:  65: Evaluating segmentations is done!
+ INFO task_evaluation.py: 180: copypaste: Dataset: coco_2014_minival
+ INFO task_evaluation.py: 182: copypaste: Task: box
+ INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
+ INFO task_evaluation.py: 186: copypaste: 0.4568,0.6695,0.4993,0.2870,0.4992,0.5774
+
+only box ap is higher than resnet101, average recall/precision drops, don't know why
+tried that, trigger box aug or box+mask aug cost almost same memory. Memroy will exhaust when scale's length is larger than 2
+need to check whether faster rcnn model will allow for full augmentation on a 12 GB card.

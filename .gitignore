@@ -34,3 +34,4 @@ model_files/*
 *.WEIGHTS
 .idea/*
 .vscode/*
+tmp/*
