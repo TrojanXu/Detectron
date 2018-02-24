@@ -128,3 +128,23 @@ INFO task_evaluation.py: 186: copypaste: 0.4263,0.6427,0.4629,0.2623,0.4628,0.56
 
 just get an averaged result compared to full-aug and no-aug. larger scales can imporve performance on small regions(guess)
 (TODO) add another test, scales change to [1000, 1200]
+
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.429
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.648
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.468
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.297
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.467
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.525
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.342
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.555
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.587
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.442
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.623
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.711
+ INFO json_dataset_evaluator.py: 199: Wrote json eval results to: ./test/coco_2014_minival/generalized_rcnn/detection_results.pkl
+ INFO task_evaluation.py:  61: Evaluating bounding boxes is done!
+ INFO task_evaluation.py: 180: copypaste: Dataset: coco_2014_minival
+ INFO task_evaluation.py: 182: copypaste: Task: box
+ INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
+ INFO task_evaluation.py: 186: copypaste: 0.4286,0.6479,0.4685,0.2970,0.4668,0.5251
+	    	 		     
