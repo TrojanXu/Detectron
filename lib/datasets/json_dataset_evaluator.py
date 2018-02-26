@@ -134,7 +134,7 @@ def evaluate_boxes(
     res_file += '.json'
     _write_coco_bbox_results_file(json_dataset, all_boxes, res_file)
     # Only do evaluation on non-test sets (annotations are undisclosed on test)
-    if json_dataset.name.find('test') == -1:
+    if True or json_dataset.name.find('test') == -1:
         coco_eval = _do_detection_eval(json_dataset, res_file, output_dir)
     else:
         coco_eval = None
