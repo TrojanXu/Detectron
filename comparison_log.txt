@@ -147,4 +147,48 @@ just get an averaged result compared to full-aug and no-aug. larger scales can i
  INFO task_evaluation.py: 182: copypaste: Task: box
  INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
  INFO task_evaluation.py: 186: copypaste: 0.4286,0.6479,0.4685,0.2970,0.4668,0.5251
-	    	 		     
+
+
+### continue with faster rcnn ap test. X-152, no aug
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.358
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.583
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.391
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.211
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.401
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.447
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.301
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.479
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.504
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.321
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.545
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.616
+INFO json_dataset_evaluator.py: 199: Wrote json eval results to: ./test/coco_2014_minival/generalized_rcnn/detection_results.pkl
+INFO task_evaluation.py:  61: Evaluating bounding boxes is done!
+INFO task_evaluation.py: 180: copypaste: Dataset: coco_2014_minival
+INFO task_evaluation.py: 182: copypaste: Task: box
+INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
+INFO task_evaluation.py: 186: copypaste: 0.3577,0.5833,0.3905,0.2110,0.4010,0.4471
+'''
+becasue the training not actually ended, to199999 iter, the result is worse than fasterrcn with x101
+another guess is that, this doesn't improve a lot for fasterrcnn model
+'''
+
+
+### continue with faster rcnn ap test. X-152, aug, scale[1000,1200] with no h_flip
+currently, due to unexpected termination, this test will be pending
+
+### you can configure pixel means in core/config.py
+### you can configure scales and maxsize in test and test_aug to use different and even original sizes in bbox prediction and classification
+
+### in blob.py and minibatch.py
+1. resize image due to scale and max_size, scale the shortest edge to SCALE, if the longest edge exceeds MAX_SIZE, scale it to MAX_SIZE
+2. use the scaled image to feed the blob. the blob is in size [num_images, x_max, y_max, num_channels], those invalid regions are just filled in with zeros.
+so for training and testing, larger scale and max_size will require for more params *in resnet, conv layer for rpn and conv layer before roialign*
+if we use larger scale than that set in train, this also works as features can be correclty extracted.
+
+In conclusion, for larger image size, during training, set SCALE to 1000, MAX_SIZE=1600. During test, set Scale to 600, 800, 1200, 1600, 2000 and MAX_SZIE=3200.
+This should work for resnet-X101.
+If acceptable, adjust scale to a larger number, say 2000, and keep max_size about 1.6 times scale.
+
+
+TDOO: configure channel mean for train	    	 		     
