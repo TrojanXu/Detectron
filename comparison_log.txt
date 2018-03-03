@@ -148,3 +148,37 @@ just get an averaged result compared to full-aug and no-aug. larger scales can i
  INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
  INFO task_evaluation.py: 186: copypaste: 0.4286,0.6479,0.4685,0.2970,0.4668,0.5251
 	    	 		     
+(TODO) to run a training on server, with scale 1100, max_size 1700. with 3 gpus, it might take about 1.5days.
+(TODO) a frontend for detectron, priority => *low* maybe I can implement it at weekends
+(TODO) with the trained model, test performance with only large scale, not for multi resolutions
+if not possible, try to infer image with multiple splits. To my knowledge, even with poor resolution
+during training, higher resolution test image will have better accuracy. write a script named split_simple_infer.py
+
+### about memory
+currently, only 1100, 1700 in X-101-32x8d is supported on frcnn. For maskrcnn and retinanet, the situation 
+can be no better. So for training, only use low resolution images. a 2000,3333 sized images can be supported as tested.
+
+### about retinanet. (trying)
+I don't know whether this can improve performance of imbalanced pos vs. neg in cbis. Something related to this in paper
+is about the difference between classes.
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.091
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.243
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.052
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.025
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.091
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.148
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.174
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.177
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.058
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.178
+INFO json_dataset_evaluator.py: 199: Wrote json eval results to: ./test/cbis_ddsm_test/retinanet/detection_results.pkl
+INFO task_evaluation.py:  61: Evaluating bounding boxes is done!
+INFO task_evaluation.py: 180: copypaste: Dataset: cbis_ddsm_test
+INFO task_evaluation.py: 182: copypaste: Task: box
+INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
+INFO task_evaluation.py: 186: copypaste: 0.0912,0.2426,0.0522,-1.0000,0.0252,0.0914
+
+the result is not ideal at all. And currently, we cannot use aug in retinanet test. This seems cannot improve the case
+where fg and bg has a cirtical imbalance
