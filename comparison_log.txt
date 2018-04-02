@@ -227,3 +227,5 @@ If acceptable, adjust scale to a larger number, say 2000, and keep max_size abou
 if not possible, try to infer image with multiple splits. To my knowledge, even with poor resolution
 during training, higher resolution test image will have better accuracy. write a script named split_simple_infer.py
 
+to infer:
+python tools/infer_simple.py --cfg configs/12_2017_baselines/e2e_faster_rcnn_X-101-32x8d-FPN_1x_cbis_local.yaml --output-dir tmp/detectron-visualizations --image-ext jpg test_imgs --wts model_files/fasterrcnn/X-101-32x8d-FPN_cbis_180000/model_final.pkl

@@ -35,3 +35,7 @@ model_files/*
 .idea/*
 .vscode/*
 tmp/*
+test_imgs
+infer_sets/*
+log.csv
+screenlog.0

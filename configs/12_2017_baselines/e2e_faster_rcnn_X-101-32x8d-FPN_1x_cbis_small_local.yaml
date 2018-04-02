@@ -3,15 +3,17 @@ MODEL:
   CONV_BODY: FPN.add_fpn_ResNet101_conv5_body
   NUM_CLASSES: 3
   FASTER_RCNN: True
-NUM_GPUS: 4
+NUM_GPUS: 2
 SOLVER:
   WEIGHT_DECAY: 0.0001
   LR_POLICY: steps_with_decay
   # 1x schedule (note TRAIN.IMS_PER_BATCH: 1)
-  BASE_LR: 0.005
+  BASE_LR: 0.0025
   GAMMA: 0.1
-  MAX_ITER: 180000
-  STEPS: [0, 120000, 160000]
+  # MAX_ITER: 180000
+  # STEPS: [0, 120000, 160000]
+  MAX_ITER: 160000
+  STEPS: [0, 60000, 100000, 130000]
 FPN:
   FPN_ON: True
   MULTILEVEL_ROIS: True
@@ -29,8 +31,8 @@ FAST_RCNN:
 TRAIN:
   WEIGHTS: model_files/resnet/X-101-32x8d.pkl
   DATASETS: ('cbis_ddsm_train', 'cbis_ddsm_val')
-  SCALES: (1100,)
-  MAX_SIZE: 1700
+  SCALES: (800,)
+  MAX_SIZE: 1300
   IMS_PER_BATCH: 1
   BATCH_SIZE_PER_IM: 512
   RPN_PRE_NMS_TOP_N: 2000  # Per FPN level
@@ -38,20 +40,20 @@ TEST:
   DATASETS: ('cbis_ddsm_test',)
   # SCALES: (1100,)
   # MAX_SIZE: 1700
-  SCALES: (1200,)
+  SCALES: (800,)
   MAX_SIZE: 2200
-  NMS: 0.3
-  RPN_PRE_NMS_TOP_N: 2000  # Per FPN level
-  RPN_POST_NMS_TOP_N: 2000
+  NMS: 0.5
+  RPN_PRE_NMS_TOP_N: 1000  # Per FPN level
+  RPN_POST_NMS_TOP_N: 1000
   FORCE_JSON_DATASET_EVAL: True
-  WEIGHTS: /home/xth/projects/Detectron/model_files/fasterrcnn/X-101-32x8d-FPN_cbis_180000/model_final.pkl
+  # WEIGHTS: /home/xth/projects/Detectron/model_files/fasterrcnn/X-101-32x8d-FPN_cbis_180000/model_final.pkl
   # -- Test time augmentation example -- #
   BBOX_AUG:
     ENABLED: True
     SCORE_HEUR: UNION  # AVG NOTE: cannot use AVG for e2e model
     COORD_HEUR: UNION  # AVG NOTE: cannot use AVG for e2e model
     H_FLIP: True
-    SCALES: (500, 700, 900)
+    SCALES: (500, 1000, 1400)
     #SCALES: (600, 700, 800, 900, 1000, 1200)    
     MAX_SIZE: 2000
     SCALE_H_FLIP: True
