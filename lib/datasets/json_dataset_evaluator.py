@@ -32,6 +32,8 @@ from core.config import cfg
 from utils.io import save_object
 import utils.boxes as box_utils
 
+from datasets.coco_eval_en import COCOevalEn
+
 logger = logging.getLogger(__name__)
 
 
@@ -190,7 +192,9 @@ def _coco_bbox_results_one_category(json_dataset, boxes, cat_id):
 
 def _do_detection_eval(json_dataset, res_file, output_dir):
     coco_dt = json_dataset.COCO.loadRes(str(res_file))
-    coco_eval = COCOeval(json_dataset.COCO, coco_dt, 'bbox')
+    # coco_eval = COCOeval(json_dataset.COCO, coco_dt, 'bbox')
+    coco_eval = COCOevalEn(json_dataset.COCO, coco_dt, 'bbox', 0.1, 0.95)
+    
     coco_eval.evaluate()
     coco_eval.accumulate()
     _log_detection_eval_metrics(json_dataset, coco_eval)
@@ -208,8 +212,8 @@ def _log_detection_eval_metrics(json_dataset, coco_eval):
         assert np.isclose(iou_thr, thr)
         return ind
 
-    IoU_lo_thresh = 0.5
-    IoU_hi_thresh = 0.95
+    IoU_lo_thresh = 0.1
+    IoU_hi_thresh = 0.5
     ind_lo = _get_thr_ind(coco_eval, IoU_lo_thresh)
     ind_hi = _get_thr_ind(coco_eval, IoU_hi_thresh)
     # precision has dims (iou, recall, cls, area range, max dets)
@@ -230,7 +234,7 @@ def _log_detection_eval_metrics(json_dataset, coco_eval):
         ap = np.mean(precision[precision > -1])
         logger.info('{:.1f}'.format(100 * ap))
     logger.info('~~~~ Summary metrics ~~~~')
-    coco_eval.summarize()
+    coco_eval.summarize(IoU_lo_thresh, IoU_hi_thresh)
 
 
 def evaluate_box_proposals(

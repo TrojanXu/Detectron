@@ -203,5 +203,24 @@ DATASETS = {
             _DATA_DIR + '/cbis_ddsm/cbis_ddsm_test',
         ANN_FN:
             _DATA_DIR + '/cbis_ddsm/annotations/test.json'
+    },
+    'cbis_ddsm_train_filtered': {
+        IM_DIR:
+            _DATA_DIR + '/cbis_ddsm/cbis_ddsm_train',
+        ANN_FN:
+            _DATA_DIR + '/cbis_ddsm/annotations/train_filtered.json'
+    },
+    'cbis_ddsm_val_filtered': {
+        IM_DIR:
+            _DATA_DIR + '/cbis_ddsm/cbis_ddsm_val',
+        ANN_FN:
+            _DATA_DIR + '/cbis_ddsm/annotations/val_filtered.json'
+    },
+    'cbis_ddsm_test_filtered': {
+        IM_DIR:
+            _DATA_DIR + '/cbis_ddsm/cbis_ddsm_test',
+        ANN_FN:
+            _DATA_DIR + '/cbis_ddsm/annotations/test_filtered.json'
     }
+    
 }

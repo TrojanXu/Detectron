@@ -2,6 +2,7 @@ import os
 import argparse
 import sys
 import json
+import math
 from collections import OrderedDict
 
 def parse_args():
@@ -43,9 +44,9 @@ def generate_csv(screenlog_file, csvlog_file):
                     continue
                 iter_dict = json.loads(line.strip('\n')[dict_slice], object_pairs_hook=OrderedDict)
                 if not csv_col:
-                    csv_col = list(iter_dict.keys())
+                    csv_col = list(iter_dict.keys())+['lg_loss']
                     out.write(','.join(csv_col))
-                out.write('\n'+','.join(str(value).replace(',', ' ') for value in iter_dict.values()))
+                out.write('\n'+','.join(str(value).replace(',', ' ') for value in iter_dict.values())+','+str(math.log10(1.0e-5+float(iter_dict['loss']))))
 
 
 if __name__ == '__main__':

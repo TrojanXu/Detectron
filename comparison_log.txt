@@ -1,4 +1,4 @@
-first attempt, retinanet without aug 
+ first attempt, retinanet without aug 
  Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.378
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.573
  Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.409
@@ -229,3 +229,38 @@ during training, higher resolution test image will have better accuracy. write a
 
 to infer:
 python tools/infer_simple.py --cfg configs/12_2017_baselines/e2e_faster_rcnn_X-101-32x8d-FPN_1x_cbis_local.yaml --output-dir tmp/detectron-visualizations --image-ext jpg test_imgs --wts model_files/fasterrcnn/X-101-32x8d-FPN_cbis_180000/model_final.pkl
+
+
+for newly trained small model on filtered cbis, a larger scale does not produce better results.
+
+## debug result. actually there's data leakage. anyway.
+for a optimized configuration:
+reson scale	result	                                       bbox aug	pre nms	post nms	nms	score_thres	rpn_nms_thres	box_aug_scale	h_flip	scale_h_flip	area_lo	area_hi	ratios	ratio_flip	vote	vote_score_m
+final 800	0.0997,0.3018,0.0451,-1.0000,0.1010,0.0996     yes	1000	400		0.3		0.05	0.3		500	        FALSE	TRUE	         50	180	0.8	FALSE	        0.85	ID
+
+result
+INFO json_dataset_evaluator.py: 226: ~~~~ Mean and per-category AP @ IoU=[0.10,0.50] ~~~~
+INFO json_dataset_evaluator.py: 227: 42.5
+INFO json_dataset_evaluator.py: 235: 51.9
+INFO json_dataset_evaluator.py: 235: 33.1
+INFO json_dataset_evaluator.py: 236: ~~~~ Summary metrics ~~~~
+Average Precision  (AP) @[ IoU=0.10:0.95 | area=   all | maxDets=100 ] = 0.251
+Average Precision  (AP) @[ IoU=0.10      | area=   all | maxDets=100 ] = 0.524
+Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.302
+Average Precision  (AP) @[ IoU=0.10:0.95 | area= small | maxDets=100 ] = -1.000
+Average Precision  (AP) @[ IoU=0.10:0.95 | area=medium | maxDets=100 ] = 0.281
+Average Precision  (AP) @[ IoU=0.10:0.95 | area= large | maxDets=100 ] = 0.251
+Average Recall     (AR) @[ IoU=0.10:0.95 | area=   all | maxDets=  1 ] = 0.351
+Average Recall     (AR) @[ IoU=0.10:0.95 | area=   all | maxDets= 10 ] = 0.394
+Average Recall     (AR) @[ IoU=0.10:0.95 | area=   all | maxDets=100 ] = 0.394
+Average Recall     (AR) @[ IoU=0.10:0.95 | area= small | maxDets=100 ] = -1.000
+Average Recall     (AR) @[ IoU=0.10:0.95 | area=medium | maxDets=100 ] = 0.278
+Average Recall     (AR) @[ IoU=0.10:0.95 | area= large | maxDets=100 ] = 0.394
+INFO json_dataset_evaluator.py: 203: Wrote json eval results to: ./test/cbis_ddsm_test_filtered/generalized_rcnn/detection_results.pkl
+INFO task_evaluation.py:  61: Evaluating bounding boxes is done!
+INFO task_evaluation.py: 180: copypaste: Dataset: cbis_ddsm_test_filtered
+INFO task_evaluation.py: 182: copypaste: Task: box
+INFO task_evaluation.py: 185: copypaste: AP,AP10,AP50,APs,APm,APl
+INFO task_evaluation.py: 186: copypaste: 0.2512,0.5237,0.3018,-1.0000,0.2805,0.2514
+
+
