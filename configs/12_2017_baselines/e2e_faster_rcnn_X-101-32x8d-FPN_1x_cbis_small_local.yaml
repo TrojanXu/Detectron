@@ -45,7 +45,8 @@ TRAIN:
   RPN_FG_FRACTION: 0.2
   RPN_NMS_THRESH: 0.1
 TEST:
-  DATASETS: ('cbis_ddsm_test_filtered',)
+  # DATASETS: ('cbis_ddsm_test',)
+  DATASETS: ('cbis_ddsm_test_filtered',)  
   # SCALES: (1100,)
   # MAX_SIZE: 1700
   SCALES: (800,)

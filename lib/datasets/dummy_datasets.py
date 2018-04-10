@@ -45,3 +45,12 @@ def get_coco_dataset():
     ]
     ds.classes = {i: name for i, name in enumerate(classes)}
     return ds
+
+def get_cbis_dataset():
+    """A dummy cbis dataset that includes only the 'classes' field. It follows coco format"""
+    ds = AttrDict()
+    classes = [
+        '__background__', 'mass', 'calcification'
+    ]
+    ds.classes = {i: name for i, name in enumerate(classes)}
+    return ds

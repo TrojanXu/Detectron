@@ -264,3 +264,30 @@ INFO task_evaluation.py: 185: copypaste: AP,AP10,AP50,APs,APm,APl
 INFO task_evaluation.py: 186: copypaste: 0.2512,0.5237,0.3018,-1.0000,0.2805,0.2514
 
 
+## to transfer testing, test on whole cbis test set
+INFO json_dataset_evaluator.py: 226: ~~~~ Mean and per-category AP @ IoU=[0.10,0.50] ~~~~
+INFO json_dataset_evaluator.py: 227: 38.9
+INFO json_dataset_evaluator.py: 235: 49.5
+INFO json_dataset_evaluator.py: 235: 28.2
+INFO json_dataset_evaluator.py: 236: ~~~~ Summary metrics ~~~~
+Average Precision  (AP) @[ IoU=0.10:0.95 | area=   all | maxDets=100 ] = 0.230
+Average Precision  (AP) @[ IoU=0.10      | area=   all | maxDets=100 ] = 0.476
+Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.273
+Average Precision  (AP) @[ IoU=0.10:0.95 | area= small | maxDets=100 ] = -1.000
+Average Precision  (AP) @[ IoU=0.10:0.95 | area=medium | maxDets=100 ] = 0.051
+Average Precision  (AP) @[ IoU=0.10:0.95 | area= large | maxDets=100 ] = 0.236
+Average Recall     (AR) @[ IoU=0.10:0.95 | area=   all | maxDets=  1 ] = 0.326
+Average Recall     (AR) @[ IoU=0.10:0.95 | area=   all | maxDets= 10 ] = 0.369
+Average Recall     (AR) @[ IoU=0.10:0.95 | area=   all | maxDets=100 ] = 0.369
+Average Recall     (AR) @[ IoU=0.10:0.95 | area= small | maxDets=100 ] = -1.000
+Average Recall     (AR) @[ IoU=0.10:0.95 | area=medium | maxDets=100 ] = 0.062
+Average Recall     (AR) @[ IoU=0.10:0.95 | area= large | maxDets=100 ] = 0.378
+INFO json_dataset_evaluator.py: 203: Wrote json eval results to: ./test/cbis_ddsm_test/generalized_rcnn/detection_results.pkl
+INFO task_evaluation.py:  61: Evaluating bounding boxes is done!
+INFO task_evaluation.py: 180: copypaste: Dataset: cbis_ddsm_test
+INFO task_evaluation.py: 182: copypaste: Task: box
+INFO task_evaluation.py: 185: copypaste: AP,AP50,AP75,APs,APm,APl
+INFO task_evaluation.py: 186: copypaste: 0.2300,0.4758,0.2730,-1.0000,0.0511,0.2359
+
+a little bit worse
+
